@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario basico</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <main class="container mt-2">
+        <form action="">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="nombreApellido">Nombre y apellido</label>
+                    <input class="form-control" type="text" placeholder="Escriba su nombre" id="nombreApellido" required/>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label" for="correo">Correo electronico</label>
+                    <input class="form-control" type="email" placeholder="Escriba su correo electronico" id="correo" required/>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label" for="contraseña">Contraseña</label>
+                    <input class="form-control" type="password" placeholder="********" id="contraseña" required/>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Seleccione sus cursos</label>
+                    <select class="form-select" name="Cursos">
+                        <option value="IP">Introduccion a la Programacion</option>
+                        <option value="DWP">Diseño web para principiantes</option>
+                        <option value="CAJ">Curso avanzado de Javascript</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="col-md-6">Temas adicionales de interes</label>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" name="temasAdicionales" id="noticias"><label class="form-check-label" for="noticias">Noticias de Tecnologia</label> </div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" name="temasAdicionales" id="cursos"><label class="form-check-label" for="cursos">Cursos nuevos</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" name="temasAdicionales" id="ofertas"><label class="form-check-label" for="ofertas">Ofertas especiales</label></div>
+                </div>
+
+                <div class="col-md-12">
+                    <button class="btn btn-primary align-content-center">Enviar</button>
+                </div>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
