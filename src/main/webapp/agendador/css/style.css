@@ -1,0 +1,11 @@
+/* El texto de la fila descartada será rojo y tachado */
+.fila-descartada {
+    color: red !important;
+    text-decoration: line-through;
+}
+
+/* Excepción: Los enlaces dentro de una fila descartada NO se tachan ni se pintan de rojo */
+.fila-descartada a {
+    text-decoration: none !important;
+    color: #0d6efd !important; /* Azul por defecto de los enlaces */
+}

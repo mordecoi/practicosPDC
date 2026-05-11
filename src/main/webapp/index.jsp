@@ -19,7 +19,8 @@
 
 <%-- 2. Llamada al JavaBean (Lo crearemos en el siguiente paso) --%>
 <%-- El ID 'explorador' es el que usaremos en los bucles --%>
-<jsp:useBean id="explorador" class="ar.edu.ubp.pdc.beans.ExploradorProyectosBean" scope="page" />
+<jsp:useBean id="explorador" class="ubp.pdc.pdcpracticos.explorador.ExploradorProyectosBean" scope="page" />
+<jsp:setProperty name="explorador" property="basePath" value="${pageContext.servletContext.getRealPath('/')}" />
 
 <header class="bg-primary text-white py-5 mb-5 shadow">
     <div class="container">
@@ -49,7 +50,7 @@
 
                         <div class="mt-auto">
                                 <%-- El enlace se construye dinámicamente con la ruta relativa --%>
-                            <a href="${proy.rutaRelativa}/index.html"
+                            <a href="${proy.rutaRelativa}/index.jsp"
                                class="btn btn-outline-primary w-100 fw-bold"
                                aria-label="Abrir el proyecto ${proy.nombre}">
                                 Abrir Proyecto
