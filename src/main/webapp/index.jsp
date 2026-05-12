@@ -50,11 +50,10 @@
 
                         <div class="mt-auto">
                                 <%-- El enlace se construye dinámicamente con la ruta relativa --%>
-                            <a href="${proy.rutaRelativa}/index.jsp"
-                               class="btn btn-outline-primary w-100 fw-bold"
-                               aria-label="Abrir el proyecto ${proy.nombre}">
-                                Abrir Proyecto
-                            </a>
+                                    <a href="${proy.rutaRelativa}/${proy.archivoInicio}"
+                                       class="btn btn-outline-primary w-100 fw-bold">
+                                        Abrir Proyecto
+                                    </a>
                         </div>
                     </div>
                 </article>

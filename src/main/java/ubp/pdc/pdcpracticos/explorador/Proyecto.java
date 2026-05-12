@@ -5,6 +5,7 @@ import java.util.Date;
 public class Proyecto {
     private String nombre;
     private String rutaRelativa;
+    private String archivoInicio;
     private Date fechaModificacion;
 
     // Constructores
@@ -25,4 +26,12 @@ public class Proyecto {
 
     public Date getFechaModificacion() { return fechaModificacion; }
     public void setFechaModificacion(Date fechaModificacion) { this.fechaModificacion = fechaModificacion; }
+
+    public String getArchivoInicio() {
+        return archivoInicio;
+    }
+
+    public void setArchivoInicio(String archivoInicio) {
+        this.archivoInicio = archivoInicio;
+    }
 }

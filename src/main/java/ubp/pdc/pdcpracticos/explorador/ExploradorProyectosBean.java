@@ -40,7 +40,7 @@ public class ExploradorProyectosBean implements Serializable {
         // Si la ruta existe y es una carpeta
         if (carpetaRaiz.exists() && carpetaRaiz.isDirectory()) {
 
-            // Listamos todo lo que hay adentro
+            // Listamos lo que hay adentro
             File[] elementos = carpetaRaiz.listFiles();
 
             if (elementos != null) {
@@ -58,11 +58,17 @@ public class ExploradorProyectosBean implements Serializable {
                         File indexJsp = new File(elemento, "index.jsp");
 
                         if (indexHtml.exists() || indexJsp.exists()) {
-                            // ¡Encontramos un proyecto válido! Lo agregamos a la lista
                             Proyecto p = new Proyecto();
                             p.setNombre(elemento.getName());
                             p.setRutaRelativa(elemento.getName());
                             p.setFechaModificacion(new Date(elemento.lastModified()));
+
+                            // DETECCIÓN DINÁMICA: Guardamos cuál de los dos archivos existe
+                            if (indexHtml.exists()) {
+                                p.setArchivoInicio("index.html");
+                            } else {
+                                p.setArchivoInicio("index.jsp");
+                            }
 
                             this.proyectos.add(p);
                         }
