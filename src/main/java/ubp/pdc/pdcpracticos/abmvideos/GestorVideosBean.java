@@ -5,18 +5,40 @@ import java.util.LinkedList;
 
 public class GestorVideosBean {
 
-    LinkedList<VideoBean> listaVideos;
-//    HashMap<Integer, String> lcategorias = new HashMap<Integer, String>();
-//    lcategorias.put(1, "BLUE");
-//    categorias.put(2, "CLÁSICA");
-//    categorias.put(3, "COUNTRY");
-//    categorias.put(4, "FUNK");
-//    categorias.put(5, "HIP HOP");
-//    categorias.put(6, "JAZZ");
-//    categorias.put(7, "POP");
-//    categorias.put(8, "ROCK");
-//    categorias.put(9, "REGGAETON y TRAP");
-//    categorias.put(10, "ROCK ALTERNATIVO");
+    private LinkedList<VideoBean> listaVideos;
+    private HashMap<Integer, String> listaCategorias = new HashMap<Integer, String>();
 
+    public GestorVideosBean() {
+        listaCategorias.put(1, "BLUE");
+        listaCategorias.put(2, "CLÁSICA");
+        listaCategorias.put(3, "COUNTRY");
+        listaCategorias.put(4, "FUNK");
+        listaCategorias.put(5, "HIP HOP");
+        listaCategorias.put(6, "JAZZ");
+        listaCategorias.put(7, "POP");
+        listaCategorias.put(8, "ROCK");
+        listaCategorias.put(9, "REGGAETON y TRAP");
+        listaCategorias.put(10, "ROCK ALTERNATIVO");
+    }
+
+    public LinkedList<VideoBean> getListaVideos() {
+        return listaVideos;
+    }
+
+    public void setListaVideos(LinkedList<VideoBean> listaVideos) {
+        this.listaVideos = listaVideos;
+    }
+
+    public HashMap<Integer, String> getListaCategorias() {
+        return listaCategorias;
+    }
+
+    public void setListaCategorias(HashMap<Integer, String> listaCategorias) {
+        this.listaCategorias = listaCategorias;
+    }
+
+    public void addVideo(VideoBean video){
+        this.listaVideos.add(video);
+    }
 
 }
