@@ -9,7 +9,7 @@
 <jsp:setProperty name="nuevoEvento" property="*" />
 
 <%-- 2. Localizamos (o creamos) el Administrador en la Sesión --%>
-<jsp:useBean id="agendador" class="ubp.pdc.pdcpracticos.agendador.AgendadorBean" scope="session" />
+<jsp:useBean id="gestor" class="ubp.pdc.pdcpracticos.agendador.AgendadorBean" scope="session" />
 
 <%-- 3. Agregamos el nuevo evento a la lista del administrador usando JSTL --%>
 <c:set target="${agendador}" property="nuevoEvento" value="${nuevoEvento}" />

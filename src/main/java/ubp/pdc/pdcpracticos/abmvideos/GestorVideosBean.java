@@ -9,6 +9,9 @@ public class GestorVideosBean {
     private HashMap<Integer, String> listaCategorias = new HashMap<Integer, String>();
 
     public GestorVideosBean() {
+        this.listaVideos = new LinkedList<VideoBean>();
+        this.listaCategorias = new HashMap<Integer, String>();
+
         listaCategorias.put(1, "BLUE");
         listaCategorias.put(2, "CLÁSICA");
         listaCategorias.put(3, "COUNTRY");
@@ -37,8 +40,19 @@ public class GestorVideosBean {
         this.listaCategorias = listaCategorias;
     }
 
-    public void addVideo(VideoBean video){
-        this.listaVideos.add(video);
+    public void setNuevoVideo(VideoBean video) {
+        // Verificamos si el ID es válido y si realmente existe dentro de los límites de la lista
+        if (video.getId() >= 0 && video.getId() < listaVideos.size()) {
+            listaVideos.set(video.getId(), video); // Actualiza el video existente
+        } else {
+            listaVideos.add(video); // Si es -1, o si la sesión se reinició, lo agrega como nuevo
+        }
+    }
+
+    public void setIdEliminar(int id) {
+        if (id >= 0 && id < this.listaVideos.size()) {
+            this.listaVideos.remove(id); // Borra el video en esa posición de la lista
+        }
     }
 
 }

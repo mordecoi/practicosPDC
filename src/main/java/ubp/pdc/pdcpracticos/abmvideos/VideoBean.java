@@ -5,7 +5,7 @@ public class VideoBean {
     String titulo;
     String autor;
     String url;
-    int id;
+    int id = -1;
 
     public int getCategoria() {
         return categoria;
@@ -37,5 +37,13 @@ public class VideoBean {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
