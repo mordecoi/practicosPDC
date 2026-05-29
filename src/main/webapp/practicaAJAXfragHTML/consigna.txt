@@ -1,0 +1,57 @@
+Para dar el gran salto arquitectónico y dominar la inyección de fragmentos, vamos a armar un plan de entrenamiento enfocado 100% en el paradigma asíncrono.
+
+Para que los ejercicios tengan un hilo conductor realista y te resulten intuitivos a nivel lógico, vamos a tematizar esta práctica construyendo un **Panel de Monitoreo NOC (Network Operations Center)** para la resolución de incidentes en sistemas críticos.
+
+El objetivo de estos 5 "sprints" es que tu página `index.jsp` **nunca se recargue**. Toda regla de oro aplica: usar Bootstrap, cero scriptlets y manipulación del DOM nativa.
+
+### Ejercicio 1: El "Ping" (Fundamentos de Fetch y Fragmentos)
+
+**Objetivo:** Hacer tu primera petición asíncrona sin parámetros y dibujar la respuesta.
+
+* **La Interfaz (`index.jsp`):** Crea un botón simple que diga "Verificar Estado del Core" y, debajo, un `<div>` vacío con el id `resultadoPing`.
+* **El Back-End (`ping.jsp`):** Crea este archivo sin las etiquetas `<html>` ni `<body>`. Su único contenido debe ser un fragmento HTML puro: `<span class="badge bg-success">Core Operativo</span>`.
+* **El JS:** Al hacer clic en el botón, usa `fetch('ping.jsp')`. Extrae el texto de la respuesta e inyéctalo directamente en el `innerHTML` de tu `<div>` vacío.
+
+### Ejercicio 2: El Multiplicador de Impacto (Enviando parámetros)
+
+**Objetivo:** Aprender a enviar datos desde el cliente hacia el servidor mediante la URL de la petición.
+
+* **La Interfaz:** Un `<input type="number">` donde el operador ingrese un nivel de severidad (del 1 al 5) y un botón "Calcular Impacto".
+* **El Back-End (`calculadora.jsp`):** Este fragmento debe atrapar ese número usando EL (`${param.severidad}`), multiplicarlo por 10 (usando etiquetas de JSTL como `<c:set>`), y devolver un bloque HTML que diga: `<div class="alert alert-warning">Impacto estimado en la red: X0%</div>`.
+* **El JS:** Arma la URL dinámicamente usando *Template Literals* (los backticks que vimos antes): `fetch('calculadora.jsp?severidad=${valorInput}')` e inyecta la alerta en pantalla.
+
+### Ejercicio 3: La Micro-Tabla (Iteración en el Fragmento)
+
+**Objetivo:** Que el servidor resuelva una lista compleja y devuelva solo las filas de una tabla, reemplazando un bloque más grande del DOM.
+
+* **El Back-End (Java + JSP):** Simula en una clase Java un HashMap con alarmas de servidores (ej: "Servidor A" -> "Uso de CPU 99%"). Tu `alarmas.jsp` debe instanciar esta clase, recorrer el mapa con `<c:forEach>` y generar únicamente etiquetas `<tr>` con sus celdas `<td>`.
+* **La Interfaz:** Dibuja la cabecera de una tabla normal en tu `index.jsp`, pero deja el `<tbody>` completamente vacío (con un ID).
+* **El JS:** Agrega un botón "Actualizar Alarmas". Al presionarlo, el `fetch` traerá todos los `<tr>` armados por el servidor y los meterá dentro de tu `<tbody>`. ¡Acabas de hacer una tabla dinámica!
+
+### Ejercicio 4: El Interruptor y el Rollback (Manejo de Errores)
+
+**Objetivo:** Replicar la "trampa" del parcial de la verdulería. Aquí aprenderás a revertir la interfaz visual si el servidor falla.
+
+* **La Interfaz:** Dibuja un servidor con un `<input type="checkbox">` que diga "Aislar de la red".
+* **El JS (Primera parte):** Al tildar el checkbox, inmediatamente cambiaremos su etiqueta a "Aislando..." y lo deshabilitaremos temporalmente. Lanzaremos el `fetch('aislar.jsp')`.
+* **El Back-End (`aislar.jsp`):** ¡Aquí vamos a forzar un error a propósito! Usa JSTL para evaluar un número aleatorio o generar un error simulado. En el 50% de los casos, devuelve un HTML de éxito (`<span class="text-danger">Aislado</span>`). En el otro 50%, lanza un error HTTP 500 o devuelve un texto de error.
+* **El JS (Segunda parte):** Si la promesa de `fetch` es exitosa (`.then()`), reemplazas el checkbox por el span rojo. **Pero**, si cae en el bloque `.catch()` (hubo un error), debes mostrar un `alert("Fallo de conexión")`, quitarle el atributo `disabled` al checkbox y volver a ponerle el `checked = false` para restaurarlo a la normalidad.
+
+### Ejercicio 5: El Jefe Final (AJAX + Base de Datos Real)
+
+**Objetivo:** Consolidar todo, desde la base de datos MySQL hasta la inyección de la micro-vista, manteniendo la arquitectura intacta.
+
+* **La Base de Datos:** Crea una tabla muy simple `tickets_incidencias` (id, titulo, estado) con 3 registros "Pendientes".
+* **La Arquitectura Java (JDBC):** Crea tu clase `TicketDAO.java` con dos métodos: `getTicketsPendientes()` y `resolverTicket(int id)`. Todo el SQL vive estrictamente aquí. Nada de conexiones en el JSP.
+* **El Flujo Completo:**
+1. Tu `index.jsp` carga inicialmente los tickets pendientes usando el DAO y muestra un botón "Marcar Resuelto" en cada uno.
+2. Al hacer clic, JS envía `fetch('resolver.jsp?idTicket=X')`.
+3. El archivo `resolver.jsp` (tu controlador intermedio) instancia tu DAO, ejecuta `resolverTicket(X)`, y luego inmediatamente llama a `getTicketsPendientes()` para obtener la lista actualizada (donde la X ya no existe).
+4. Ese mismo `resolver.jsp` usa un `<c:forEach>` para dibujar las "tarjetas" o filas actualizadas de los tickets que quedan.
+5. JS recibe ese bloque completo de HTML puro y sobreescribe todo el contenedor de tickets en la pantalla principal.
+
+
+
+Si logras hacer que el Ejercicio 5 funcione fluidamente —presionar "Resolver" y ver cómo la fila desaparece instantáneamente tras viajar a la base de datos sin que la pantalla parpadee— habrás dominado la lógica exacta que te exigía el parcial.
+
+¿Te gustaría armar tu entorno y empezar intentando el código del Ejercicio 1? Yo te asisto si te trabas con la sintaxis del `fetch`.
